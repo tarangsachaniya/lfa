@@ -5,7 +5,6 @@ import Image from 'next/image';
 
 const NavBar = () => {
       const { userId } = auth();
-
       return (
             <div className="navbar bg-base-100 shadow-md px-4 lg:px-8">
                   {/* Left Side - Logo and Home Link */}
@@ -34,6 +33,9 @@ const NavBar = () => {
                                     <li>
                                           <Link href="/">Home</Link>
                                     </li>
+                                    <li>
+                                    <Link href="/stories" className="hover:text-primary">Story</Link>
+                              </li>
                               </ul>
                         </div>
                         <Link href="/" className="flex items-center gap-2 text-xl italic">
@@ -50,7 +52,9 @@ const NavBar = () => {
                               <li>
                                     <Link href="/" className="hover:text-primary">Home</Link>
                               </li>
-                              {/* Add more links here */}
+                              <li>
+                                    <Link href="/stories" className="hover:text-primary">Story</Link>
+                              </li>
                         </ul>
                   </div>
 
