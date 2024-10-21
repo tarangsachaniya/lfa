@@ -1,7 +1,10 @@
 'use client';
 import Image from 'next/image';
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
+
+// Dynamically import ReactQuill with no SSR
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
 const Page = () => {
@@ -13,7 +16,6 @@ const Page = () => {
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
     setTitle(newTitle);
-    // Automatically generate slug based on title
     setSlug(newTitle.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''));
   };
 
@@ -73,7 +75,7 @@ const Page = () => {
               theme="snow"
               value={content}
               onChange={setContent}
-              className="bg-white text-black md:h-48" // Adjusted heights for mobile and desktop
+              className="bg-white text-black md:h-48"
             />
           </div>
         </div>
