@@ -12,6 +12,7 @@ const Page = () => {
   const [slug, setSlug] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState('');
+  
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;

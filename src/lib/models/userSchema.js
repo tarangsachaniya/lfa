@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
     lastName : {
       type: String,
       default: ''
+    },
+    isTeamMember : {
+      type: Boolean,
+      default: false
     }
   },
   {

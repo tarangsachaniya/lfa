@@ -11,7 +11,7 @@ const Page = () => {
 
       {/* Add Story link aligned to the right */}
       <div className="flex justify-end mb-3">
-        <Link href="/stories/addStory">
+        <Link href="/addStory">
           <button className="btn btn-primary">
             Add Story
           </button>
