@@ -38,7 +38,9 @@ const NavBar = () => {
                         </div>
                         <Link href="/" className="flex items-center gap-2 text-xl italic">
                               <Image src="/Lfa.png" height={80} width={80} alt="lfa" className="rounded-full" />
-                              LJites&apos; Fetialis Aevum
+                              <span className='hidden md:block'>
+                                    LJites&apos; Fetialis Aevum
+                              </span>
                         </Link>
                   </div>
 
