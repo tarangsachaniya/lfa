@@ -43,7 +43,7 @@ const Page = () => {
       <h1 className="text-3xl font-bold text-center mb-4">Add Article</h1>
       <div className="flex flex-wrap justify-center mb-4">
         <p className="text-center text-lg pb-2">
-          Whether it's a story, poem, insight, or any other creative piece, we invite you to share your voice with our community by submitting your work below.
+          Whether it&apos;s a story, poem, insight, or any other creative piece, we invite you to share your voice with our community by submitting your work below.
         </p>
       </div>
       <form onSubmit={handleSubmit} className="min-w-0 md:max-w-[75%] mx-auto p-6 rounded-lg shadow-md bg-white">

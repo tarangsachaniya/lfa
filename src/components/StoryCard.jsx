@@ -1,10 +1,14 @@
+import Image from "next/image";
+
 const StoryCard = () => {
       return (
         <div className="card bg-base-100 w-full sm:w-50 md:w-90 shadow-xl">
           <figure>
-            <img
+            <Image
               src="/Lfa.png"
               alt="Stories"
+              width={300}
+              height={200}
               className="w-full h-48 object-cover"
             />
           </figure>
