@@ -55,20 +55,21 @@ const NavBar = () => {
                   </div>
 
                   {/* Right Side - Authentication Buttons or User Profile */}
-                  <div className="navbar-end space-x-4">
+                  <div className="navbar-end space-x-4 lg:space-x-0">
                         {userId === null ? (
-                              <>
+                              <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-4">
                                     <SignInButton mode="modal">
-                                          <button className="btn btn-outline btn-primary">Sign In</button>
+                                          <button className="btn btn-outline btn-primary block lg:inline">Sign In</button>
                                     </SignInButton>
                                     <SignUpButton mode="modal">
-                                          <button className="btn btn-primary">Sign Up</button>
+                                          <button className="btn btn-primary block lg:inline">Sign Up</button>
                                     </SignUpButton>
-                              </>
+                              </div>
                         ) : (
                               <UserButton />
                         )}
                   </div>
+
             </div>
       );
 };
