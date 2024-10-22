@@ -2,16 +2,19 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
-import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [content, setContent] = useState('');
-  const [imageFile, setImageFile] = useState(null); // Change to store the file directly
+  const [image, setImage] = useState('');
+  const router = useRouter();
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
@@ -27,7 +30,11 @@ const Page = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImageFile(file); // Store the file directly
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -37,8 +44,7 @@ const Page = () => {
     formData.append('title', title);
     formData.append('slug', slug);
     formData.append('content', content);
-    formData.append('image', imageFile); // Append the file directly
-
+    formData.append('image', image);
     try {
       const res = await fetch('/api/blog', {
         method: 'POST',
@@ -49,7 +55,8 @@ const Page = () => {
         setTitle('');
         setSlug('');
         setContent('');
-        setImageFile(null); // Reset the image file
+        setImage('');
+        router.push('/stories');
       } else {
         throw new Error('Failed to create blog');
       }
@@ -60,6 +67,7 @@ const Page = () => {
 
   return (
     <div className="bg-base-100 p-6">
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <h1 className="text-3xl font-bold text-center mb-4">Add Article</h1>
       <div className="flex flex-wrap justify-center mb-4">
         <p className="text-center text-lg pb-2">
@@ -96,7 +104,7 @@ const Page = () => {
               theme="snow"
               value={content}
               onChange={setContent}
-              className="bg-base-300 text-white rounded-md focus:outline-none focus:ring focus:ring-primary focus:border-primary md:h-48"
+              className="bg-base-300 text-white rounded-md md:h-48"
             />
           </div>
         </div>
@@ -110,12 +118,12 @@ const Page = () => {
             required
           />
         </div>
-        {imageFile && ( // Use imageFile for the preview
+        {image && (
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Image Preview</label>
+            <label className="block text-sm font-medium text-white-700">Image Preview</label>
             <div className="flex justify-center">
               <Image
-                src={URL.createObjectURL(imageFile)} // Use createObjectURL for preview
+                src={image}
                 alt="Preview"
                 height={0}
                 width={0}

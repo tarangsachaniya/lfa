@@ -1,29 +1,29 @@
 import connectDB from '@/lib/dbConnect';
 import Blog from '@/lib/models/blogSchema';
-import upload from '@/lib/multer';
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 connectDB();
 export async function GET(req) {
+      
       try {
             const blogs = await Blog.aggregate([
                   {
-                        $lookup: {
-                              from: 'users',
-                              localField: 'author',
-                              foreignField: 'clerkUserId',
-                              as: 'authorDetails',
-                        },
+                    $lookup: {
+                      from: 'users', 
+                      localField: 'author',
+                      foreignField: 'clerkUserId',
+                      as: 'authorDetails',
+                    },
                   },
                   {
-                        $unwind: '$authorDetails',
+                    $unwind: '$authorDetails',
                   },
                   {
-                        $sort: {
-                              createdAt: -1,
-                        },
+                    $sort: {
+                      createdAt: -1,
+                    },
                   },
-            ]);
+                ]);
             return NextResponse.json({ blogs });
       } catch (error) {
             console.error('Error fetching blogs:', error);
@@ -31,38 +31,31 @@ export async function GET(req) {
       }
 }
 export async function POST(req) {
-      const { userId } = auth();
-      if (!userId) {
-            return resolve(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }));
-      }
+      try {
+            const { userId } = auth();
+            if (!userId) {
+                  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            }
+            const formData = await req.formData();
+            const title = formData.get('title');
+            const content = formData.get('content');
+            const image = formData.get('image');
+            const slug = formData.get('slug');
 
-      return new Promise((resolve, reject) => {
-            upload.single('image')(req, {}, async (err) => {
-                  if (err) {
-                        return reject(NextResponse.json({ error: 'File upload failed' }, { status: 400 }));
-                  }
-
-                  try {
-                        const { title, content, slug } = req.body;
-                        const image = req.file?.path
-
-                        if (!title || !content || !image) {
-                              return resolve(NextResponse.json({ error: 'Missing required fields' }, { status: 400 }));
-                        }
-
-                        const newBlog = await Blog.create({
-                              title,
-                              content,
-                              author: userId,
-                              slug,
-                              image,
-                        });
-
-                        return resolve(NextResponse.json({ message: 'Blog post created successfully', blog: newBlog }, { status: 201 }));
-                  } catch (error) {
-                        console.error('Error creating blog post:', error);
-                        return resolve(NextResponse.json({ error: 'Internal Server Error' }, { status: 500 }));
-                  }
+            if (!title || !content || !image) {
+                  return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+            }
+            const newBlog = await Blog.create({
+                  title,
+                  content,
+                  author: userId,
+                  slug,
+                  image,
             });
-      });
+
+            return NextResponse.json({ message: 'Blog post created successfully', blog: newBlog }, { status: 201 });
+      } catch (error) {
+            console.error('Error creating blog post:', error);
+            return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+      }
 }
