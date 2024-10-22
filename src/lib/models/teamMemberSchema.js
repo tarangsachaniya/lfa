@@ -3,8 +3,8 @@ import { branches, teams } from "..";
 
 const teamMemberSchema = new Schema({
       userId:{
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+            type: String,
+            required: true
       },
       team:{
             type: String,
