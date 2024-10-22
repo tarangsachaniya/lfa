@@ -44,7 +44,7 @@ const Page = () => {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {loading ? (
-          <div className="flex items-center justify-center"><Loading /></div>
+          <div className="text-center col-span-3"><Loading /></div>
         ) : stories.length > 0 ? (
           stories.map((story) => (
             <StoryCard key={story._id} story={story} />

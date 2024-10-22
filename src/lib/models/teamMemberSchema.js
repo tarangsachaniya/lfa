@@ -39,6 +39,10 @@ const teamMemberSchema = new Schema({
       requestStatus:{
             type: Boolean,
             default: false
+      },
+      portfolio:{
+            type: String,
+            default: 'null'
       }
 },{
       timestamps: true,

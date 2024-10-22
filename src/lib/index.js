@@ -21,7 +21,7 @@ export const branches = [
 
 export const teams = [
       "Marketing",
-      "Design",
+      "Designing",
       "Content-Editing",
       "Social Media"
 ];
