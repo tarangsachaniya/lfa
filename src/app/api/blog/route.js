@@ -15,7 +15,8 @@ export async function POST(req) {
     const formData = await req.formData();
     const title = formData.get('title');
     const content = formData.get('content');
-    const image = formData.get('image'); // Assuming it's a base64 image string
+    const image = formData.get('image');
+    const slug = formData.get('slug');
 
     // Validate that all required fields are provided
     if (!title || !content || !image) {
@@ -26,8 +27,9 @@ export async function POST(req) {
     const newBlog = await Blog.create({
       title,
       content,
-      userId,
-      image, // Assuming the image is saved as a base64 string or handled elsewhere
+      author : userId,
+      slug,
+      image,
     });
 
     return NextResponse.json({ message: 'Blog post created successfully', blog: newBlog }, { status: 201 });
