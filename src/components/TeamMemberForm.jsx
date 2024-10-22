@@ -2,7 +2,7 @@
 import { branches, teams } from '@/lib';
 import React, { useState } from 'react';
 
-const TeamMemberForm = () => {
+const TeamMemberForm = ({props}) => {
   const [formData, setFormData] = useState({
     team: '',
     branch: '',
@@ -40,6 +40,18 @@ const TeamMemberForm = () => {
 
   return (
     <form className="min-w-0 md:max-w-[75%] mx-auto p-6 rounded-lg shadow-md bg-base-300" onSubmit={handleSubmit}>
+      <div className="form-control mb-4">
+        <label className="label">
+          <span className="label-text">User Id</span>
+        </label>
+        <input
+          type="text"
+          name="userId"
+          value={props}
+          disabled
+          className="input  input-bordered w-full border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary focus:border-primary"
+        />
+      </div>
       <div className="form-control mb-4">
         <label className="label">
           <span className="label-text">Enrollment Number:</span>

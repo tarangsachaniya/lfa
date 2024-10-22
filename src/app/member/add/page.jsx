@@ -1,7 +1,7 @@
 import TeamMemberForm from '@/components/TeamMemberForm';
-import React from 'react';
-
+import { auth } from '@clerk/nextjs/server';
 const page = () => {
+  const {userId} = auth();
   return (
     <div className='min-h-screen'>
       <div className="flex flex-col items-center justify-center p-6">
@@ -9,7 +9,7 @@ const page = () => {
             <p className="mb-6 text-lg text-white-700 text-wrap">Want to join a team? Fill this out:</p>
       </div>
       
-      <TeamMemberForm />
+      <TeamMemberForm props = {userId} />
     </div>
   );
 };
