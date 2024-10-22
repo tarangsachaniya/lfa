@@ -4,26 +4,26 @@ import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 connectDB();
 export async function GET(req) {
-      
+
       try {
             const blogs = await Blog.aggregate([
                   {
-                    $lookup: {
-                      from: 'users', 
-                      localField: 'author',
-                      foreignField: 'clerkUserId',
-                      as: 'authorDetails',
-                    },
+                        $lookup: {
+                              from: 'users',
+                              localField: 'author',
+                              foreignField: 'clerkUserId',
+                              as: 'authorDetails',
+                        },
                   },
                   {
-                    $unwind: '$authorDetails',
+                        $unwind: '$authorDetails',
                   },
                   {
-                    $sort: {
-                      createdAt: -1,
-                    },
+                        $sort: {
+                              createdAt: -1,
+                        },
                   },
-                ]);
+            ]);
             return NextResponse.json({ blogs });
       } catch (error) {
             console.error('Error fetching blogs:', error);
