@@ -1,10 +1,11 @@
 'use client';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
-const page = () => {
+
+const Page = () => {
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [content, setContent] = useState('');
@@ -43,7 +44,7 @@ const page = () => {
       method: 'POST',
       body: formData,
     });
-  }
+  };
 
   return (
     <div className="bg-base-100 p-6">
@@ -119,4 +120,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
