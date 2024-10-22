@@ -2,6 +2,9 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
@@ -40,14 +43,29 @@ const Page = () => {
     formData.append('slug', slug);
     formData.append('content', content);
     formData.append('image', image);
-    await fetch('/api/blog', {
-      method: 'POST',
-      body: formData,
-    });
+
+    try {
+      const res = await fetch('/api/blog', {
+        method: 'POST',
+        body: formData,
+      }); 
+      if (res.ok) {
+        toast.success("Blog created successfully");
+        setTitle('');
+        setSlug('');
+        setContent('');
+        setImage('');
+      } else {
+        throw new Error('Failed to create blog');
+      }
+    } catch (error) {
+      toast.error('Error creating blog: ' + error.message); // Error toast
+    }
   };
 
   return (
     <div className="bg-base-100 p-6">
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <h1 className="text-3xl font-bold text-center mb-4">Add Article</h1>
       <div className="flex flex-wrap justify-center mb-4">
         <p className="text-center text-lg pb-2">

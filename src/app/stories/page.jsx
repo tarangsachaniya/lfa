@@ -1,7 +1,29 @@
+'use client';
+import Loading from '@/components/Loading';
 import StoryCard from '@/components/StoryCard';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const Page = () => {
+  const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const res = await fetch('/api/blog');
+        const data = await res.json(); 
+        setStories(data.blogs || []);
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, []);
+
   return (
     <div className="bg-base-100 p-6">
       <h1 className="text-3xl font-bold text-center">Stories</h1>
@@ -18,16 +40,18 @@ const Page = () => {
         </Link>
       </div>
 
-      <hr className='pb-3' />
+      <hr className="pb-3" />
 
-      {/* Responsive grid layout for story cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
+        {loading ? (
+          <div className="flex items-center justify-center"><Loading /></div>
+        ) : stories.length > 0 ? (
+          stories.map((story) => (
+            <StoryCard key={story._id} story={story} />
+          ))
+        ) : (
+          <p className="text-center col-span-3">No stories available</p>
+        )}
       </div>
     </div>
   );

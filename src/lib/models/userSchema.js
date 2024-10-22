@@ -2,13 +2,15 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    clerkUserId:{
-      type:String,
-      required: true
+    clerkUserId: {
+      type: String,
+      required: true,
+      unique: true, // Assuming each user should have a unique Clerk ID
     },
     name: {
       type: String,
       required: true,
+      trim: true, // Trimming whitespace
     },
     email: {
       type: String,
@@ -17,28 +19,30 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    photo:{
-      type:String,
-      default:'null'
-    },
-    firstName : {
+    photo: {
       type: String,
-      default: ''
+      default: null, // Use null instead of string 'null' for clarity
     },
-    lastName : {
+    firstName: {
       type: String,
-      default: ''
+      default: '',
+      trim: true, // Optionally trim whitespace
     },
-    isTeamMember : {
+    lastName: {
+      type: String,
+      default: '',
+      trim: true, // Optionally trim whitespace
+    },
+    isAdmin: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;
