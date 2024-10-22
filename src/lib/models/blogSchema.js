@@ -16,7 +16,7 @@ const blogSchema = new Schema({
   content: {
     type: String,
     required: true,
-    minlength: 300,
+    maxlength: 300,
   },
   author: {
     type: String, // Now it stores the clerkUserId directly
