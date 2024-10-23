@@ -11,7 +11,9 @@ const Page = () => {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const res = await fetch('/api/blog');
+        const res = await fetch('/api/blog?isAdminApproved=true',{
+          method: 'GET',
+        });
         const data = await res.json(); 
         setStories(data.blogs || []);
       } catch (error) {

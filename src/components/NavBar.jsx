@@ -34,8 +34,8 @@ const NavBar = () => {
                                           <Link href="/">Home</Link>
                                     </li>
                                     <li>
-                                    <Link href="/stories" className="hover:text-primary">Story</Link>
-                              </li>
+                                          <Link href="/stories" className="hover:text-primary">Story</Link>
+                                    </li>
                               </ul>
                         </div>
                         <Link href="/" className="flex items-center gap-2 text-xl italic">
