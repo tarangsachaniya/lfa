@@ -6,7 +6,7 @@ import Image from 'next/image';
 const NavBar = () => {
       const { userId } = auth();
       return (
-            <div className="navbar bg-base-100 shadow-md px-4 lg:px-8">
+            <div className="navbar sticky bg-base-100 shadow-md px-4 lg:px-8">
                   {/* Left Side - Logo and Home Link */}
                   <div className="navbar-start">
                         <div className="dropdown">
@@ -39,7 +39,7 @@ const NavBar = () => {
                               </ul>
                         </div>
                         <Link href="/" className="flex items-center gap-2 text-xl italic">
-                              <Image src="/Lfa.png" height={80} width={80} alt="lfa" className="rounded-full" />
+                              <Image src="https://lfa-325m.vercel.app//Lfa.png" height={80} width={80} alt="lfa" className="rounded-full" />
                               <span className='hidden md:block'>
                                     LJites&apos; Fetialis Aevum
                               </span>
