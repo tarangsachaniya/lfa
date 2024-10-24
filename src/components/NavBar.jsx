@@ -39,9 +39,11 @@ const NavBar = () => {
                               </ul>
                         </div>
                         <Link href="/" className="flex items-center gap-2 text-xl italic">
-                              <Image src="https://lfa-325m.vercel.app//Lfa.png" height={80} width={80} alt="lfa" className="rounded-full" />
                               <span className='hidden md:block'>
                                     LJites&apos; Fetialis Aevum
+                              </span>
+                              <span className='block md:hidden'>
+                                    LFA
                               </span>
                         </Link>
                   </div>
